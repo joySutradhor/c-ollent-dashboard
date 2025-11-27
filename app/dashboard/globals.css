@@ -1,0 +1,189 @@
+@import 'tailwindcss';
+
+@layer utilities {
+  /* text styles */
+  .edn__card__small__title {
+    @apply text-sm font-semibold;
+  }
+
+  .edn__section__title {
+    @apply text-lg font-semibold text-black/70;
+  }
+
+  .edn__title__heading {
+    @apply text-base font-semibold text-black/70;
+  }
+  .edn__card__medium__title {
+    @apply text-sm font-semibold text-black/80 mb-1;
+  }
+  .edn__small__text {
+    @apply text-sm font-medium text-black/80;
+  }
+
+  .edn__xs__text {
+    @apply text-xs text-black/60;
+  }
+
+  /* common styles  */
+  .common_layout {
+    @apply  grid  xl:grid-cols-[70.5%__28%]  2xl:grid-cols-[72.5%__25%] xl:justify-between  ;
+  }
+
+  .order_layout_first {
+    @apply order-1 mb-14 xl:mb-0 xl:order-2;
+  }
+
+  .order_layout_two {
+    @apply order-2  xl:order-1;
+  }
+  .edn__sideToLeftSpace {
+    @apply pl-6 xl:pl-[20vw] 2xl:pl-[18vw] md:mx-auto;
+  }
+
+  .edn__left__right__space {
+    @apply pr-6 xl:pr-[2vw] pt-[2vh] ;
+  }
+
+  .edn__icon {
+    @apply text-xl font-semibold;
+  }
+
+  .edn__tooltip {
+    @apply py-1 px-4 rounded-full text-xs font-medium bg-gray-200/50 w-auto mb-3;
+  }
+
+  /*----------------- components styles here start -----------------*/
+  /* --------------------------------------------------------------- */
+  /* 1. Dashboard 
+  2. Common Banner */
+
+  /* Dashboard banner styles here  */
+  /* hdb for home dashboard banner  */
+
+  .edn__hdb__wrapper {
+    @apply h-[20vh] 2xl:h-[25vh] w-full rounded-xl xl:rounded-2xl object-cover bg-center  bg-no-repeat;
+  }
+  .edn__hdb__content__parent {
+    @apply flex gap-x-5 items-center h-full justify-center md:justify-start px-[5vw]  md:px-[5vw] w-full;
+  }
+  .edn__hdb__heading__text {
+    @apply text-xl 2xl:text-4xl xl:font-semibold font-bold text-black/80;
+  }
+  .edn__hdb__title {
+    @apply text-base xl:text-xl font-medium text-black/80 mb-1;
+  }
+
+  .edn__hdb__date {
+    @apply text-sm xl:text-base font-medium text-black/60;
+  }
+
+  /* common banner styles here  */
+  /* cb for common banner */
+  .edn__cb__wrapper {
+    @apply h-[20vh] 2xl:h-[15vh] w-full rounded-xl xl:rounded-2xl object-cover bg-center  bg-no-repeat;
+  }
+  .edn__cb__content__parent {
+    @apply flex gap-x-5 items-center h-full pl-[6vw] xl:pl-0 xl:justify-center;
+  }
+  .edn__cb__heading__text {
+    @apply text-lg 2xl:text-xl xl:font-semibold font-bold text-black/80;
+  }
+  .edn__cb__title {
+    @apply text-sm lg:text-base font-medium text-black/80 mb-1;
+  }
+
+  .edn__cb__date {
+    @apply text-sm font-medium text-black/60;
+  }
+
+  /* -------- topbar ------  */
+  /*  edn for -- edu den  */
+  /*  tb for -- Topbar  */
+
+  .edn__tb__wrapper {
+    @apply flex justify-between items-center mb-[5vh] border p-2 lg:p-5 bg-white rounded-xl border-black/10;
+  }
+  .edn__tb__parent {
+    @apply flex items-center gap-x-2 text-sm text-black/70;
+  }
+  .edn__tb__title {
+    @apply text-xl font-semibold mb-2;
+  }
+
+  /* side bar menu class  */
+  .edn__sidebarMenu {
+    @apply min-h-[100vh] bg-[#fff] w-[100vw] md:w-[60vw] xl:w-[19vw] 2xl:w-[16vw] text-black pl-[1vw] pr-[2vw] py-[5vh] fixed left-0 top-0;
+  }
+
+  .edn__sidebar__menuParent {
+    @apply flex gap-x-2 items-center hover:bg-[#111] hover:text-white transition-all ease-in-out duration-500 p-3 rounded cursor-pointer;
+  }
+
+  /*----------------- components styles here end -----------------*/
+  /* --------------------------------------------------------------- */
+
+  /*----------------- Pages styles here start -----------------*/
+  /* --------------------------------------------------------------- */
+
+  /* 1.Homepage 
+         1.1. small cards 
+         1.2. Lattest addmited course */
+
+  /* home page small cards styles  */
+  /* edn for eduden h for home page */
+
+  .edn__h__card__wrapper {
+    @apply grid md:grid-cols-2 xl:grid-cols-2 xl:grid-cols-3 gap-x-[5%] gap-y-3 md:gap-y-5 xl:gap-y-0 mt-10;
+  }
+
+  .edn__h__card__parent {
+    @apply flex gap-x-5 items-center bg-white rounded-xl py-5 pl-4;
+  }
+
+  .edn__h__card__icon__parent {
+    @apply size-12 rounded-md flex justify-center items-center;
+  }
+  .edn__card__small__number {
+    @apply text-xl font-semibold;
+  }
+
+  /* home page courses */
+  .edn__h__courses__container {
+    @apply px-3 py-10 md:px-5 md:py-10 xl:py-10 xl:px-10 bg-white rounded-xl mt-10;
+  }
+  .edn__h__course__card__wrapper {
+    @apply grid md:grid-cols-2 xl:grid-cols-3 gap-y-3 md:gap-y-5 xl:gap-y-0 gap-x-5 items-center h-full mt-10;
+  }
+
+  .edn__h__course__item {
+    @apply rounded-xl border border-black/10 p-5 h-full;
+  }
+
+  .edn__course__btn {
+    @apply py-2 text-sm font-medium bg-gray-100 rounded-md w-full text-center flex gap-x-2 items-center justify-center cursor-pointer;
+  }
+
+  /* upcomming courses styles  */
+
+  .edn__h__upcomming__wrapper {
+    @apply mb-4 p-4 border border-black/10 rounded-xl  ;
+  }
+  .edn__h__upcomming__card__parent {
+    @apply bg-[#F8F8F8] rounded-xl p-5;
+  }
+  .edn__h__upcomming__card__child__parent {
+    @apply flex gap-x-5 items-center;
+  }
+  .edn__h__upcomming__card__icon__parent {
+    @apply size-10 rounded-md bg-white flex justify-center items-center;
+  }
+
+  /* class schedule pages */
+
+  /* addmitted course page styles */
+  /* acp => admitted course page  */
+
+  .edn__acp__courses__container {
+    @apply bg-white rounded-xl pb-10;
+  }
+}
