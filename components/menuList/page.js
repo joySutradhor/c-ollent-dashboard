@@ -4,6 +4,8 @@ import { TbBackground } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { ImProfile } from "react-icons/im";
 import useAuthToken from "@/app/dashboard/Hooks/useAuthToken";
+import { IoCreateOutline } from "react-icons/io5";
+
 
 
 export const menuList = () => {
@@ -21,7 +23,7 @@ export const menuList = () => {
     { name: "Schedule Grounds", href: "/dashboard/schedule-grounds", icon: <SlCalender /> },
     { name: "Academy List", href: "/dashboard/academy-list", icon: <FaListUl /> },
     { name: "Client List", href: "/dashboard/client-list", icon: <FaListUl /> },
-    { name: "Create Plans", href: "/dashboard/create-subscriptions", icon: <FaListUl /> },
+    { name: "Create Plans", href: "/dashboard/create-subscriptions", icon: <IoCreateOutline /> },
     { name: "My Profile", href: "/dashboard/profile", icon: <ImProfile /> },
   ];
 
