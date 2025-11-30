@@ -8,61 +8,64 @@ import { ImProfile } from "react-icons/im";
 import useAuthToken from "@/app/dashboard/Hooks/useAuthToken";
 
 export const useMenuList = () => {
-  const { token, user_type } = useAuthToken();
+  const { user_type } = useAuthToken();
 
-  if (!user_type) return []; // wait for user_type
+  if (!user_type) return []; // wait for user_type to load
 
+  // Define menus with roles
   const menus = [
-    { name: "Dashboard", href: "/dashboard", icon: <IoHomeOutline /> },
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: <IoHomeOutline />,
+      roles: ["SuperAdmin", "Academy", "Client"],
+    },
     {
       name: "Create Sport Type",
       href: "/dashboard/sport-type",
       icon: <FaPlusSquare />,
+      roles: ["SuperAdmin"],
     },
     {
       name: "Create Ground",
       href: "/dashboard/grounds",
       icon: <TbBackground />,
+      roles: ["SuperAdmin", "Academy"],
     },
     {
       name: "Schedule Grounds",
       href: "/dashboard/schedule-grounds",
       icon: <SlCalender />,
+      roles: ["Academy"],
     },
     {
       name: "Academy List",
       href: "/dashboard/academy-list",
       icon: <FaListUl />,
+      roles: ["SuperAdmin"],
     },
-    { name: "Client List", href: "/dashboard/client-list", icon: <FaListUl /> },
+    {
+      name: "Client List",
+      href: "/dashboard/client-list",
+      icon: <FaListUl />,
+      roles: ["SuperAdmin", "Academy"],
+    },
     {
       name: "Create Plans",
       href: "/dashboard/create-subscriptions",
       icon: <IoCreateOutline />,
+      roles: ["SuperAdmin"],
     },
-    { name: "My Profile", href: "/dashboard/profile", icon: <ImProfile /> },
+    {
+      name: "My Profile",
+      href: "/dashboard/profile",
+      icon: <ImProfile />,
+      roles: ["SuperAdmin", "Academy", "Client"],
+    },
   ];
 
-  if (user_type === "SuperAdmin") return menus;
+  // Filter menus based on current user_type
+  const filteredMenus = menus.filter((menu) => menu.roles.includes(user_type));
 
-  if (user_type === "Academy") {
-    return menus.filter(
-      (m) =>
-        m.name !== "Create Sport Type" &&
-        m.name !== "Academy List" &&
-        m.name !== "Client List"
-    );
-  }
-
-  if (user_type === "Client") {
-    return menus.filter(
-      (m) =>
-        m.name !== "Create Sport Type" &&
-        m.name !== "Academy List" &&
-        m.name !== "Schedule Grounds" &&
-        m.name !== "Client List"
-    );
-  }
-
-  return menus;
+  return filteredMenus;
 };

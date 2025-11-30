@@ -268,15 +268,17 @@ export default function Page() {
             {/* HEADER */}
             <div className="flex justify-between items-center mb-4">
               <h1 className="text-xl font-bold">Manage Grounds</h1>
-              <button
-                onClick={() => {
-                  resetForm();
-                  setModalOpen(true);
-                }}
-                className="px-4 py-2 bg-[#2545E0] text-white rounded-md cursor-pointer hover:bg-[#1e3ac4]"
-              >
-                + Create Ground
-              </button>
+              {user_type == "Academy" && (
+                <button
+                  onClick={() => {
+                    resetForm();
+                    setModalOpen(true);
+                  }}
+                  className="px-4 py-2 bg-[#2545E0] text-white rounded-md cursor-pointer hover:bg-[#1e3ac4]"
+                >
+                  + Create Ground
+                </button>
+              )}
             </div>
 
             {/* TABLE */}
