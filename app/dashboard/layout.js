@@ -21,7 +21,7 @@ export default function LoginLayout ({ children }) {
       data-new-gr-c-s-check-loaded="14.1263.0"
       data-gr-ext-installed=""
       
-      className={`${WorkSans.className}  antialiased bg-no-repeat  h-screen`}
+      className={`${WorkSans.className}  antialiased bg-no-repeat `}
     >
       <Sidebar />
       {children}

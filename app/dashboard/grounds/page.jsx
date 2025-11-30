@@ -14,6 +14,7 @@ import {
   FaTimesCircle,
 } from "react-icons/fa";
 import useAuthToken from "../Hooks/useAuthToken";
+import Link from "next/link";
 
 const GROUNDS_API = "https://api.ollent.com/api/grounds/";
 const SPORT_API = "https://api.ollent.com/api/sport-type/";
@@ -27,7 +28,7 @@ export default function Page() {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(null);
   const pathname = usePathname();
-  const { token } = useAuthToken();
+  const { token, user_type } = useAuthToken();
   console.log(token, "check token");
 
   const [formData, setFormData] = useState({
@@ -203,7 +204,7 @@ export default function Page() {
     toast.promise(
       axios.delete(`${GROUNDS_API}${id}/`, {
         headers: {
-          Authorization: `Bearer ${token}`, 
+          Authorization: `Bearer ${token}`,
         },
       }),
       {
@@ -277,8 +278,8 @@ export default function Page() {
                 + Create Ground
               </button>
             </div>
-            {/* TABLE */}
 
+            {/* TABLE */}
             <div>
               {grounds.length === 0 ? (
                 <div className="text-center p-6 text-gray-500">
@@ -351,20 +352,28 @@ export default function Page() {
                       </div>
 
                       {/* Actions */}
-                      <div className="mt-auto flex gap-2">
-                        <button
-                          onClick={() => openEditModal(g)}
-                          className="flex-1 border border-black/10 cursor-pointer hover:bg-[#2545E0] text-black/70 px-3 py-2 rounded-md flex items-center justify-center hover:text-white gap-2 font-medium transition"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => deleteGround(g.id)}
-                          className="flex-1 border border-black/10 hover:bg-red-500 hover:text-white text-black/70 cursor-pointer  px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition"
-                        >
-                          Delete
-                        </button>
-                      </div>
+                      {user_type == "Client" || "SuperAdmin" ? (
+                        <Link href={`/dashboard/grounds/${g.id}`}>
+                          <button className="border border-black/10 hover:bg-[#2545E0] hover:text-white text-black/70 cursor-pointer  px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition">
+                            View Schedule
+                          </button>
+                        </Link>
+                      ) : (
+                        <div className="mt-auto flex gap-2">
+                          <button
+                            onClick={() => openEditModal(g)}
+                            className="flex-1 border border-black/10 cursor-pointer hover:bg-[#2545E0] text-black/70 px-3 py-2 rounded-md flex items-center justify-center hover:text-white gap-2 font-medium transition"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => deleteGround(g.id)}
+                            className="flex-1 border border-black/10 hover:bg-red-500 hover:text-white text-black/70 cursor-pointer  px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>

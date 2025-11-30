@@ -1,52 +1,56 @@
-import { IoHomeOutline } from 'react-icons/io5'
-import { SlCalender } from 'react-icons/sl'
-import { LuFolderCode } from 'react-icons/lu'
-import { MdOutlineIntegrationInstructions } from 'react-icons/md'
-import { FaFileCircleQuestion } from 'react-icons/fa6'
-import { FaFileAlt } from 'react-icons/fa'
-import { FaAward } from 'react-icons/fa'
-import { FaIndianRupeeSign } from "react-icons/fa6";
+import { FaListUl, FaPlusSquare } from "react-icons/fa";
+import { IoHomeOutline } from "react-icons/io5";
+import { TbBackground } from "react-icons/tb";
+import { SlCalender } from "react-icons/sl";
 import { ImProfile } from "react-icons/im";
-import { MdOutlineAssignmentTurnedIn } from "react-icons/md";
-import { FaPlusSquare } from "react-icons/fa";
-
-import { GoListOrdered } from "react-icons/go";
-import { FaListUl } from "react-icons/fa6";
-
-
-
-
+import useAuthToken from "@/app/dashboard/Hooks/useAuthToken";
 
 
 export const menuList = () => {
-  return [
-    { name: 'Dashboard', href: '/dashboard', icon: <IoHomeOutline /> },
-    { name: 'Create Sport Type', href: '/dashboard/sport-type', icon: <FaPlusSquare /> },
-    {
-      name: 'Create Ground',
-      href: '/dashboard/grounds',
-      icon: <LuFolderCode />
-    },
-    {
-      name: 'Schedule Grounds',
-      href: '/dashboard/schedule-grounds',
-      icon: <SlCalender />
-    },
-    {
-      name: 'Academy List',
-      href: '/dashboard/academy-list',
-      icon: <FaListUl />
-    },
-    {
-      name: 'Client List',
-      href: '/dashboard/client-list',
-      icon: <GoListOrdered />
-    },
-    // { name: 'My quiz', href: '/dashboard/my-quiz', icon: <FaFileCircleQuestion /> },
-    // { name: 'Submit Assignment', href: '/dashboard/submit-assignment', icon: <MdOutlineAssignmentTurnedIn /> },
-    // { name: 'My Attendance', href: '/dashboard/my-attendance', icon: <FaFileAlt /> },
-    // { name: 'Payment History', href: '/dashboard/payment-history', icon: <FaIndianRupeeSign /> },
-    { name: 'My Profile', href: '/dashboard/profile', icon: <ImProfile /> },
-    // { name: 'My Certificate', href: '/dashboard/my-certificate', icon: <FaAward /> }
-  ]
-}
+  const { token, user_type } = useAuthToken();
+
+  // Wait until user_type is available (important!)
+  if (!user_type) {
+    return [];
+  }
+
+  const menus = [
+    { name: "Dashboard", href: "/dashboard", icon: <IoHomeOutline /> },
+    { name: "Create Sport Type", href: "/dashboard/sport-type", icon: <FaPlusSquare /> },
+    { name: "Create Ground", href: "/dashboard/grounds", icon: <TbBackground /> },
+    { name: "Schedule Grounds", href: "/dashboard/schedule-grounds", icon: <SlCalender /> },
+    { name: "Academy List", href: "/dashboard/academy-list", icon: <FaListUl /> },
+    { name: "Client List", href: "/dashboard/client-list", icon: <FaListUl /> },
+    { name: "Create Plans", href: "/dashboard/create-subscriptions", icon: <FaListUl /> },
+    { name: "My Profile", href: "/dashboard/profile", icon: <ImProfile /> },
+  ];
+
+  // SUPER ADMIN → sees everything
+  if (user_type === "SuperAdmin") {
+    return menus;
+  }
+
+  // ACADEMY → custom menu
+  else if (user_type === "Academy") {
+    return menus.filter(
+      m =>
+        m.name !== "Create Sport Type" &&
+        m.name !== "Academy List" &&
+        m.name !== "Client List"
+    );
+  }
+
+  // CLIENT → custom menu
+  else if (user_type === "Client") {
+    return menus.filter(
+      m =>
+        m.name !== "Create Sport Type" &&
+        m.name !== "Academy List" &&
+        m.name !== "Schedule Grounds" &&
+        m.name !== "Client List"
+    );
+  }
+
+  // fallback
+  return menus;
+};

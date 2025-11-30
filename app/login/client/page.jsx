@@ -31,7 +31,7 @@ export default function Client() {
 
     try {
       const res = await axios.post(
-        "https://api.ollent.com/api/client-register",
+        "https://api.ollent.com/api/client-register/",
         formData
       );
 

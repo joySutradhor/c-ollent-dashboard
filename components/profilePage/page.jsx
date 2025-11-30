@@ -155,7 +155,7 @@ export default function ProfilePage() {
       else if (user_type === "Client") {
         formData.append("name", form.name);
         formData.append("contact", form.contact);
-        formData.append("address", form.address);
+        formData.append("address", form.address || "Place address here");
         if (form.profile_image) {
           formData.append("profile_image", form.profile_image);
         }
