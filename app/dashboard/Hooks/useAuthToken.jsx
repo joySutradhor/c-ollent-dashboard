@@ -7,7 +7,7 @@ const useAuthToken = () => {
 
   const [token, setToken] = useState(null);
   const [user_type, setUserType] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
@@ -22,31 +22,32 @@ const useAuthToken = () => {
     setToken(storedToken);
     setUserType(storedType);
 
-    const verify = async () => {
-      try {
-        const res = await axios.post(
-          "https://api.ollent.com/api/verify-token/",
-          { token: storedToken }
-        );
+    // const verify = async () => {
+    //   try {
+    //     const res = await axios.post(
+    //       "https://api.ollent.com/api/verify-token/",
+    //       { token: storedToken }
+    //     );
 
-        const result = res.data?.result;
+    //     const result = res.data?.result;
 
-        // Accept "true" or true
-        if (result === true || result === "true") {
-          setLoading(false);
-        } else {
-          localStorage.clear();
-          router.push("/login");
-        }
-      } catch (err) {
-        localStorage.clear();
-        router.push("/login");
-      }
+   
+    //     if (result === true || result === "true") {
+    //       setLoading(false);
+    //     } else {
+    //       localStorage.clear();
+    //       router.push("/login");
+    //     }
+    //   } catch (err) {
+    //     console.log(err, "auto logout error");
+    //     localStorage.clear();
+    //     router.push("/login");
+    //   }
 
-      setLoading(false);
-    };
+    //   setLoading(false);
+    // };
 
-    verify();
+    // verify();
   }, []);
 
   return { token, user_type, loading };
