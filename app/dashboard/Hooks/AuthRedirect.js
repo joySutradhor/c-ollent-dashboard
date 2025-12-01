@@ -26,7 +26,7 @@ const AuthRedirect = () => {
         console.log(response , "response from api token")
 
         // API returns: { result: "true" }
-        if (response.data.result == true) {
+        if (response?.data?.result == true) {
           router.push("/dashboard");
         } else {
           router.push("/login");
