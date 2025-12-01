@@ -5,7 +5,7 @@
 // import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import "./root.css"
-import AuthRedirect from './dashboard/Hooks/AuthRedirect';
+
 
 export default function Home() {
   // const token = useToken();
