@@ -4,8 +4,8 @@ import AuthRedirect from "./Hooks/AuthRedirect";
 export default function Home() {
   return (
     <section>
-      
-      <DashboardHome /> <AuthRedirect />
+      <DashboardHome /> 
+      {/* <AuthRedirect /> */}
     </section>
   );
 }

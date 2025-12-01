@@ -26,7 +26,9 @@ export default function Home() {
   return (
     <section>
       {/* <Login /> */}
-      <h1 className='text-6xl font-bold  flex justify-center items-center h-[100vh]'> <AuthRedirect/> </h1>
+      <h1 className='text-6xl font-bold  flex justify-center items-center h-[100vh]'>
+         {/* <AuthRedirect/> */}
+         </h1>
     </section>
   );
 }
