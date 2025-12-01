@@ -50,7 +50,7 @@ const useAuthToken = () => {
     // verify();
   }, []);
 
-  return { token, user_type, loading };
+  return { token, user_type };
 };
 
 export default useAuthToken;
