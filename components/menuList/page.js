@@ -6,6 +6,8 @@ import { TbBackground } from "react-icons/tb";
 import { SlCalender } from "react-icons/sl";
 import { ImProfile } from "react-icons/im";
 import useAuthToken from "@/app/dashboard/Hooks/useAuthToken";
+import { RiPriceTag3Line } from "react-icons/ri";
+import { TbHistory } from "react-icons/tb";
 
 export const useMenuList = () => {
   const { user_type } = useAuthToken();
@@ -55,6 +57,18 @@ export const useMenuList = () => {
       href: "/dashboard/create-subscriptions",
       icon: <IoCreateOutline />,
       roles: ["SuperAdmin"],
+    },
+    {
+      name: "Get Plans",
+      href: "/dashboard/get-plans",
+      icon: <RiPriceTag3Line />,
+      roles: ["Academy"],
+    },
+    {
+      name: "Plans History",
+      href: "/dashboard/plan-history",
+      icon: <TbHistory />,
+      roles: ["Academy", "SuperAdmin", "Client"],
     },
     {
       name: "My Profile",

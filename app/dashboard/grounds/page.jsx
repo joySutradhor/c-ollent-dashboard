@@ -257,7 +257,7 @@ export default function Page() {
     )
     .join(" / ");
 
-  console.log(grounds, "chek");
+  console.log(user_type, "user type ");
 
   return (
     <div>
@@ -354,9 +354,9 @@ export default function Page() {
                       </div>
 
                       {/* Actions */}
-                      {user_type == "Client" || "SuperAdmin" ? (
+                      {user_type === "Client" || user_type === "SuperAdmin" ? (
                         <Link href={`/dashboard/grounds/${g.id}`}>
-                          <button className="border border-black/10 hover:bg-[#2545E0] hover:text-white text-black/70 cursor-pointer  px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition">
+                          <button className="border border-black/10 hover:bg-[#2545E0] hover:text-white text-black/70 cursor-pointer px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition">
                             View Schedule
                           </button>
                         </Link>
@@ -370,7 +370,7 @@ export default function Page() {
                           </button>
                           <button
                             onClick={() => deleteGround(g.id)}
-                            className="flex-1 border border-black/10 hover:bg-red-500 hover:text-white text-black/70 cursor-pointer  px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition"
+                            className="flex-1 border border-black/10 hover:bg-red-500 hover:text-white text-black/70 cursor-pointer px-3 py-2 rounded-md flex items-center justify-center gap-2 font-medium transition"
                           >
                             Delete
                           </button>

@@ -20,6 +20,8 @@ const Page = () => {
     return token ? { Authorization: `Token ${token}` } : {};
   }, [token]);
 
+  console.log(token , "before fetch token")
+
   // Fetch Grounds
   const fetchAcademyList = useCallback(async () => {
     setLoading(true);
@@ -43,6 +45,9 @@ const Page = () => {
   useEffect(() => {
     fetchAcademyList();
   }, [fetchAcademyList]);
+
+
+  console.log(academyList , "check cleint list")
 
   // Format breadcrumb title
   const formattedPath = pathname

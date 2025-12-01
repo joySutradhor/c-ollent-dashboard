@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
-import { toast } from "sonner"; // <-- Sonner toast
+import { toast } from "sonner";
 import Link from "next/link";
 import "../root.css";
 import { useRouter } from "next/navigation";
@@ -10,38 +10,36 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false); // <-- Loading state
   const router = useRouter();
 
   const handleLogin = async () => {
-    console.log(email, password);
+    if (!email || !password) {
+      toast.error("Email and password required");
+      return;
+    }
+
+    setLoading(true); 
+
     try {
       const response = await axios.post("https://api.ollent.com/api/login/", {
         email,
         password,
       });
 
-      // Reset form after success
-      // setFormData({
-      //   email: "",
-      //   password: "",
-      // });
+      console.log(response.data, "login response")
 
-      // Store data in localStorage
-      localStorage.setItem("token", (response?.data?.token));
-      localStorage.setItem("user_type", (response?.data?.user?.user_type));
+      localStorage.setItem("token", response?.data?.token);
+      localStorage.setItem("user_type", response?.data?.user?.user_type);
 
-      // Show success message
       toast.success("Login successful!");
 
-      console.log("Login Successful:", response);
       router.push("/dashboard");
-
-      // Optional: redirect
-      // window.location.href = "/dashboard";
     } catch (error) {
       console.error("Login Error:", error);
-
       toast.error("Invalid email or password");
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -87,9 +85,23 @@ export default function Login() {
         {/* Login Button */}
         <button
           onClick={handleLogin}
-          className="w-full bg-white text-purple-700 font-semibold py-3 rounded-full hover:bg-gray-200 transition cursor-pointer"
+          disabled={loading}
+          className={`w-full font-semibold py-3 rounded-full transition cursor-pointer
+            ${
+              loading
+                ? "bg-gray-300 text-gray-600"
+                : "bg-white text-black-700 hover:bg-gray-200"
+            }
+          `}
         >
-          Login
+          {loading ? (
+            <div className="flex items-center justify-center gap-2">
+              <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+              Loading...
+            </div>
+          ) : (
+            "Login"
+          )}
         </button>
 
         <p className="text-white mt-4">Don’t have an account?</p>
