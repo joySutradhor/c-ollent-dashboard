@@ -25,7 +25,7 @@ export default function RootLayout({ children }) {
         <Toaster richColors position="top-right" />
         {/* <Sidebar /> */}
         {children}
-        {/* <AuthRedirect/> */}
+
       </body>
     </html>
   );

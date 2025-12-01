@@ -25,7 +25,7 @@ export default function LoginLayout ({ children }) {
     >
       <Sidebar />
       {children}
-      {/* <AuthRedirect/> */}
+
     </section>
   )
 }
