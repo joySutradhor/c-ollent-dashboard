@@ -50,7 +50,7 @@ export const useMenuList = () => {
       name: "Client List",
       href: "/dashboard/client-list",
       icon: <FaListUl />,
-      roles: ["SuperAdmin", "Academy"],
+      roles: ["SuperAdmin"],
     },
     {
       name: "Create Plans",

@@ -31,8 +31,8 @@ export default function SuccessPage() {
 
         <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gray-50 p-6">
           <div className="bg-white shadow-lg rounded-xl p-10 text-center max-w-md">
-            <h1 className="text-3xl font-semibold text-green-600 mb-4">
-              Payment Successful 🎉
+            <h1 className="text-3xl font-semibold text-[#2545E0] mb-4">
+              Payment Successful 
             </h1>
 
             <p className="text-gray-700 mb-6">
@@ -41,14 +41,10 @@ export default function SuccessPage() {
 
             <button
               onClick={() => router.push("/dashboard/plan-history")}
-              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+              className="px-6 py-3 cursor-pointer bg-[#2545E0] text-white rounded-lg  transition"
             >
               Go to Plan History
             </button>
-
-            <p className="text-sm text-gray-500 mt-4">
-              Redirecting automatically...
-            </p>
           </div>
         </div>
       </div>

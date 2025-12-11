@@ -48,14 +48,16 @@ export default function Topbar ({ title }) {
       {/* profile */}
       <div>
         <Link href='/dashboard/profile'>
-          <img
+          {/* <img
             src={data?.picture}
             height={100}
             width={100}
             alt='profile image'
             className='object-cover size-10 rounded-full '
             title={data?.full_name}
-          />
+          /> */}
+
+          <p>Profile</p>
         </Link>
       </div>
     </div>

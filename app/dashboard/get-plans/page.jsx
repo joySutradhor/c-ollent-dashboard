@@ -11,7 +11,7 @@ export default function SubscriptionPlans() {
   const [plans, setPlans] = useState([]);
   const [activePlans, setActivePlans] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedTypes, setSelectedTypes] = useState({});
+  const [selectedTypes, setSelectedTypes] = useState({}); // store user click per plan
   const { token } = useAuthToken();
   const pathname = usePathname();
   const baseURL = "https://api.ollent.com";
@@ -48,13 +48,6 @@ export default function SubscriptionPlans() {
     try {
       const res = await axios.get(`${baseURL}/api/subscription-plans/`);
       setPlans(res.data.results);
-
-      // initialize default plan type
-      const defaultTypes = {};
-      res.data.results.forEach((plan) => {
-        defaultTypes[plan.id] = "monthly";
-      });
-      setSelectedTypes(defaultTypes);
     } catch (error) {
       toast.error("Failed to load plans.");
     } finally {
@@ -68,6 +61,10 @@ export default function SubscriptionPlans() {
 
   const handlePurchase = async (plan) => {
     const type = selectedTypes[plan.id];
+    if (!type) {
+      toast.error("Please select Monthly or Yearly.");
+      return;
+    }
     try {
       toast.loading("Processing purchase...");
       const res = await axios.post(
@@ -85,6 +82,12 @@ export default function SubscriptionPlans() {
   };
 
   const handleUpgrade = async (plan) => {
+    const newPlanType = selectedTypes[plan.id];
+    if (!newPlanType) {
+      toast.error("Please select Monthly or Yearly.");
+      return;
+    }
+
     if (!activePlans || !activePlans.subscriptons_details) {
       toast.error("Active plan info not found");
       return;
@@ -92,7 +95,6 @@ export default function SubscriptionPlans() {
 
     const currentPlanId = activePlans.subscriptons_details.id;
     const currentPlanType = activePlans.plan_type;
-    const newPlanType = selectedTypes[plan.id];
 
     // Prevent downgrade for same plan
     if (
@@ -153,75 +155,79 @@ export default function SubscriptionPlans() {
             {plans.map((plan) => (
               <div
                 key={plan.id}
-                className={`p-5 rounded-xl flex flex-col justify-between ${
-                  isCurrentPlan(plan) ? "bg-blue-50 border border-blue-200" : "bg-white"
+                className={`p-5 rounded-xl flex flex-col justify-between border ${
+                  isCurrentPlan(plan)
+                    ? "border-blue-400 bg-blue-50"
+                    : "border-gray-200 bg-white"
                 }`}
               >
-                <div className="bg-gray-100 p-8 rounded-xl space-y-[2vh]">
-                  <button className="text-sm shadow text-black/70 font-semibold py-2 px-6 bg-white rounded-full">
-                    {plan.name}
-                  </button>
+                <div className="p-6 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h2 className="text-lg font-semibold">{plan.name}</h2>
+                    {isCurrentPlan(plan) && (
+                      <span className="text-sm text-[#2545E0] font-semibold">
+                        Current / {activePlans.plan_type.toUpperCase()}
+                      </span>
+                    )}
+                  </div>
 
-                  <p className="text-gray-600 text-sm mb-8">{plan.description}</p>
+                  <p className="text-gray-600 text-sm">{plan.description}</p>
 
-                  <div className="flex flex-wrap gap-5 items-center">
-                    {/* MONTHLY */}
-                    <label
-                      className={`flex items-center gap-3 text-sm font-medium cursor-pointer px-4 py-2 rounded-full border ${
+                  <div className="flex gap-4">
+                    {/* Monthly */}
+                    <button
+                      onClick={() =>
+                        setSelectedTypes({ ...selectedTypes, [plan.id]: "monthly" })
+                      }
+                      disabled={isMonthlyDisabled(plan)}
+                      className={`flex-1 py-2 rounded-full cursor-pointer border text-sm font-medium ${
                         selectedTypes[plan.id] === "monthly"
-                          ? "bg-[#2545E0] text-white border border-black/10"
-                          : "bg-white text-black border-black/10"
+                          ? "bg-[#2545E0] text-white border-[#2545E0]"
+                          : "bg-white text-black border-gray-300"
                       } ${isMonthlyDisabled(plan) ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
-                      <input
-                        type="radio"
-                        name={`plan_${plan.id}`}
-                        value="monthly"
-                        className="hidden"
-                        checked={selectedTypes[plan.id] === "monthly"}
-                        disabled={isMonthlyDisabled(plan)}
-                        onChange={() =>
-                          setSelectedTypes({ ...selectedTypes, [plan.id]: "monthly" })
-                        }
-                      />
-                      <span>Monthly (${plan.monthly_price})</span>
-                    </label>
+                      Monthly (${plan.monthly_price})
+                    </button>
 
-                    {/* YEARLY */}
-                    <label
-                      className={`flex items-center gap-3 text-sm font-medium cursor-pointer px-4 py-2 rounded-full border ${
+                    {/* Yearly */}
+                    <button
+                      onClick={() =>
+                        setSelectedTypes({ ...selectedTypes, [plan.id]: "yearly" })
+                      }
+                      className={`flex-1 py-2 rounded-full border cursor-pointer text-sm font-medium ${
                         selectedTypes[plan.id] === "yearly"
-                          ? "bg-[#2545E0] text-white border-blue-600"
+                          ? "bg-[#2545E0] text-white border-[#2545E0]"
                           : "bg-white text-black border-gray-300"
                       }`}
                     >
-                      <input
-                        type="radio"
-                        name={`plan_${plan.id}`}
-                        value="yearly"
-                        className="hidden"
-                        checked={selectedTypes[plan.id] === "yearly"}
-                        onChange={() =>
-                          setSelectedTypes({ ...selectedTypes, [plan.id]: "yearly" })
-                        }
-                      />
-                      <span>Yearly (${plan.yearly_price})</span>
-                    </label>
+                      Yearly (${plan.yearly_price})
+                    </button>
                   </div>
                 </div>
 
+                {/* Action button */}
                 {activePlans ? (
                   isCurrentPlan(plan) ? (
                     <button
                       onClick={() => handleUpgrade(plan)}
-                      className="mt-4 border border-black/10 text-black/80 hover:text-white hover:bg-[#2545E0] text-sm font-medium px-8 py-2 rounded-full transition cursor-pointer"
+                      disabled={!selectedTypes[plan.id]}
+                      className={`mt-4 w-full py-2 rounded-full text-sm  cursor-pointer font-medium border transition ${
+                        selectedTypes[plan.id]
+                          ? "bg-[#2545E0] text-white border-[#2545E0] hover:bg-[#1b37c9]"
+                          : "bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed"
+                      }`}
                     >
                       Upgrade Plan
                     </button>
                   ) : (
                     <button
                       onClick={() => handleUpgrade(plan)}
-                      className="mt-4 border border-black/10 text-black/80 hover:text-white hover:bg-[#2545E0] text-sm font-medium px-8 py-2 rounded-full transition cursor-pointer"
+                      disabled={!selectedTypes[plan.id]}
+                      className={`mt-4 w-full py-2 rounded-full cursor-pointer text-sm font-medium border transition ${
+                        selectedTypes[plan.id]
+                          ? "bg-[#2545E0] text-white border-[#2545E0] hover:bg-[#1b37c9]"
+                          : "bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed"
+                      }`}
                     >
                       Switch Plan
                     </button>
@@ -229,7 +235,12 @@ export default function SubscriptionPlans() {
                 ) : (
                   <button
                     onClick={() => handlePurchase(plan)}
-                    className="mt-4 border border-black/10 text-black/80 hover:text-white hover:bg-[#2545E0] text-sm font-medium px-8 py-2 rounded-full transition cursor-pointer"
+                    disabled={!selectedTypes[plan.id]}
+                    className={`mt-4 w-full py-2 rounded-full cursor-pointer text-sm font-medium border transition ${
+                      selectedTypes[plan.id]
+                        ? "bg-[#2545E0] text-white border-[#2545E0] hover:bg-[#1b37c9]"
+                        : "bg-gray-100 text-gray-400 border-gray-300 cursor-not-allowed"
+                    }`}
                   >
                     Get Plan
                   </button>
