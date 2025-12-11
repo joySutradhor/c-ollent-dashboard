@@ -212,7 +212,7 @@ export default function ProfilePage() {
 
     try {
       await axios.post(
-        "https://api.eduden.mrshakil.com/api/change-password/",
+        "https://api.ollent.com/api/change-password/",
         passwordForm,
         { headers: { Authorization: `Token ${token}` } }
       );

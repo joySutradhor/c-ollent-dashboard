@@ -9,7 +9,9 @@ import useAuthToken from "../Hooks/useAuthToken";
 
 export default function SubscriptionPlans() {
   const [plans, setPlans] = useState([]);
+  const [activePlans, setActivePlans] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [academeyActiveplan, setAcademeyActiveplan] = useState(null);
 
   const pathname = usePathname();
   const baseURL = "https://api.ollent.com";
@@ -26,6 +28,40 @@ export default function SubscriptionPlans() {
       segment.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase())
     )
     .join(" / ");
+
+  // Fetch subscription plans
+  const fetchActivePlans = async () => {
+    try {
+      if (!token) {
+        console.log("Token not ready yet");
+        return;
+      }
+
+      console.log("TOKEN:", token);
+
+      const res = await axios.get(`${baseURL}/api/academy-user-active/`, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      });
+
+      setActivePlans(res?.data, "check data");
+    } catch (error) {
+      toast.error("Failed to active user");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchActivePlans();
+    }
+  }, [token]);
+
+  useEffect(() => {
+    fetchActivePlans();
+  }, [token]);
 
   // Fetch subscription plans
   const fetchPlans = async () => {
@@ -57,8 +93,8 @@ export default function SubscriptionPlans() {
     try {
       toast.loading("Processing purchase...");
 
-      console.log(  plan.id, type , "check what i send")
-      console.log(  token , "check token")
+      console.log(plan.id, type, "check what i send");
+      console.log(token, "check token");
       const res = await axios.post(
         `${baseURL}/api/purchase-academy-subscription/`,
         {
@@ -72,7 +108,7 @@ export default function SubscriptionPlans() {
         }
       );
 
-      console.log( res , "check take plan response")
+      console.log(res, "check take plan response");
 
       toast.dismiss();
       toast.success("Redirecting to checkout...");
@@ -80,13 +116,33 @@ export default function SubscriptionPlans() {
       window.location.href = res.data.checkout_url;
     } catch (error) {
       toast.dismiss();
-      console.log(error)
+      console.log(error);
 
       toast.error(
         error.response?.data?.message || "Purchase failed. Try again."
       );
     }
   };
+
+  
+
+  useEffect(() => {
+    if (!plans.length || !activePlans) return;
+
+    const activePlan = plans.find(
+      (p) =>
+        p.id == activePlans.subscriptons_details?.id &&
+        activePlans.status === "active"
+    );
+
+    console.log(activePlan , "check what i rcv ");
+
+    if (activePlan) {
+      setAcademeyActiveplan(true);
+    }
+  }, [plans, activePlans]);
+
+  console.log(academeyActiveplan);
 
   return (
     <div className="edn__sideToLeftSpace">
