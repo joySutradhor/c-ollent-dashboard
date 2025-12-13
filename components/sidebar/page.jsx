@@ -24,14 +24,26 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <section
+        // className={`
+        //   edn__sidebarMenu
+        //   fixed top-0 left-0 h-full bg-white shadow-lg
+        //   xl:translate-x-0 xl:relative xl:shadow-none
+        //   transform transition-transform duration-300 ease-in-out
+        //   ${isOpen ? "translate-x-0" : "-translate-x-full"}
+        //   z-40
+        // `}
+
         className={`
-          edn__sidebarMenu
-          fixed top-0 left-0 h-full bg-white shadow-lg
-          xl:translate-x-0 xl:relative xl:shadow-none
-          transform transition-transform duration-300 ease-in-out
-          ${isOpen ? "translate-x-0" : "-translate-x-full"}
-          z-40
-        `}
+    edn__sidebarMenu
+    fixed xl:relative
+   
+    top-0 left-0 h-full
+    bg-white shadow-lg
+    xl:translate-x-0
+    transform transition-transform duration-300 ease-in-out
+    ${isOpen ? "translate-x-0" : "-translate-x-full"}
+    z-40
+  `}
       >
         <div className="p-4">
           <div className="mb-[5vh]">

@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <body
         cz-shortcut-listen="true"
         className={`${WorkSans.className}  antialiased bg-no-repeat bg-[#f7f5f5]`}
-        data-new-gr-c-s-check-loaded="14.1264.0"
+         data-new-gr-c-s-check-loaded="14.1266.0"
         data-gr-ext-installed=""
       >
         <Toaster richColors position="top-right" />

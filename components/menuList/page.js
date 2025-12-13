@@ -8,11 +8,17 @@ import { ImProfile } from "react-icons/im";
 import useAuthToken from "@/app/dashboard/Hooks/useAuthToken";
 import { RiPriceTag3Line } from "react-icons/ri";
 import { TbHistory } from "react-icons/tb";
+import { MdChecklist } from "react-icons/md";
+import { BsListCheck } from "react-icons/bs";
+import { RiListUnordered } from "react-icons/ri";
+
+
+
 
 export const useMenuList = () => {
   const { user_type } = useAuthToken();
 
-  if (!user_type) return []; // wait for user_type to load
+  if (!user_type) return []; 
 
   // Define menus with roles
   const menus = [
@@ -29,10 +35,16 @@ export const useMenuList = () => {
       roles: ["SuperAdmin"],
     },
     {
-      name: "Create Ground",
+      name: "All Grounds",
       href: "/dashboard/grounds",
       icon: <TbBackground />,
-      roles: ["SuperAdmin", "Academy"],
+      roles: ["SuperAdmin", "Academy" , "Client"],
+    },
+    {
+      name: "Booking List",
+      href: "/dashboard/booking-list",
+      icon: <MdChecklist />,
+      roles: ["SuperAdmin", "Academy" , "Client"],
     },
     {
       name: "Schedule Grounds",
@@ -43,13 +55,13 @@ export const useMenuList = () => {
     {
       name: "Academy List",
       href: "/dashboard/academy-list",
-      icon: <FaListUl />,
+      icon: <RiListUnordered />,
       roles: ["SuperAdmin"],
     },
     {
       name: "Client List",
       href: "/dashboard/client-list",
-      icon: <FaListUl />,
+      icon: <BsListCheck />,
       roles: ["SuperAdmin"],
     },
     {
@@ -68,7 +80,13 @@ export const useMenuList = () => {
       name: "Plans History",
       href: "/dashboard/plan-history",
       icon: <TbHistory />,
-      roles: ["Academy", "SuperAdmin", "Client"],
+      roles: ["Academy"],
+    },
+    {
+      name: "Plans History",
+      href: "/dashboard/subscriptions-history",
+      icon: <TbHistory />,
+      roles: ["SuperAdmin"],
     },
     {
       name: "My Profile",

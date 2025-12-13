@@ -231,7 +231,7 @@ export default function Academy() {
         </div>
 
         {/* Submit Button */}
-        <button className="w-full mt-6 bg-white text-purple-700 font-semibold py-3 rounded-full hover:bg-gray-200 transition">
+        <button className="w-full mt-6 bg-white text-black cursor-pointer font-semibold py-3 rounded-full hover:bg-gray-200 transition">
           Register Academy
         </button>
 

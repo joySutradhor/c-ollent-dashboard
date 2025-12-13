@@ -366,8 +366,8 @@ export default function GroundSchedulePage() {
           </h1>
 
           {/* Filters */}
-          <div className="grid grid-cols-2 gap-10 justify-between  ">
-            <div className="bg-white p-10 rounded-xl ">
+          <div className="grid xl:grid-cols-2 gap-10 justify-between  ">
+            <div className="bg-white p-5 xl:p-10 rounded-xl ">
               <h2 className="text-2xl font-semibold mb-6">Create Schedule</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -400,7 +400,7 @@ export default function GroundSchedulePage() {
                 </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-5 items-center bg-white p-10 rounded-xl">
+            <div className="grid grid-cols-2 gap-5 items-center bg-white p-5 xl:p-10 rounded-xl">
               <div>
                 <label className="block text-sm mb-1">Ground</label>
                 <select

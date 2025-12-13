@@ -37,7 +37,7 @@
     @apply order-2  xl:order-1;
   }
   .edn__sideToLeftSpace {
-    @apply pl-6 xl:pl-[20vw] 2xl:pl-[18vw] md:mx-auto;
+    @apply pl-5;
   }
 
   .edn__left__right__space {
@@ -101,7 +101,7 @@
   /*  tb for -- Topbar  */
 
   .edn__tb__wrapper {
-    @apply flex justify-between items-center mb-[5vh] border p-2 lg:p-5 bg-white rounded-xl border-black/10;
+    @apply flex justify-between items-center mb-[5vh] border p-5 lg:p-5 bg-white rounded-xl border-black/10;
   }
   .edn__tb__parent {
     @apply flex items-center gap-x-2 text-sm text-black/70;

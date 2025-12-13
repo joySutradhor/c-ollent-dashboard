@@ -266,7 +266,7 @@ export default function Page() {
           <Topbar title={formattedPath} />
           <div>
             {/* HEADER */}
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-wrap justify-between items-center mb-4 gap-y-3">
               <h1 className="text-xl font-bold">Manage Grounds</h1>
               {user_type == "Academy" && (
                 <button
@@ -281,20 +281,20 @@ export default function Page() {
               )}
             </div>
 
-            {/* TABLE */}
+       
             <div>
               {grounds.length === 0 ? (
                 <div className="text-center p-6 text-gray-500">
                   No grounds found
                 </div>
               ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1  md:grid-cols-2 xl:grid-cols-3 gap-6">
                   {grounds.map((g, index) => (
                     <div
                       key={index}
                       className="bg-white rounded-xl shadow p-5  "
                     >
-                      <div className="grid grid-cols-[60%_35%] justify-between ">
+                      <div className="grid grid-cols-1 lg:grid-cols-[60%_35%] justify-between space-y-3">
                         {/* Image */}
                         <div>
                           <div>

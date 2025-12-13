@@ -112,7 +112,7 @@ export default function Client() {
         </div>
 
         {/* Register Button */}
-        <button className="w-full bg-white text-purple-700 font-semibold py-3 rounded-full hover:bg-gray-200 transition">
+        <button className="w-full bg-white text-black cursor-pointer font-semibold py-3 rounded-full hover:bg-gray-200 transition">
           Register
         </button>
 

@@ -33,7 +33,7 @@ export default function SubscriptionPlans() {
       });
       setActivePlans(res?.data);
     } catch (error) {
-      toast.error("Failed to fetch active plan.");
+      // toast.error("Failed to fetch active plan.");
     } finally {
       setLoading(false);
     }
@@ -146,12 +146,12 @@ export default function SubscriptionPlans() {
     <div className="edn__sideToLeftSpace">
       <div className="edn__left__right__space">
         <Topbar title={formattedPath} />
-        <h1 className="text-3xl font-semibold mb-6">Subscription Plans</h1>
+        <h1 className="text-3xl font-semibold mb-6">Subscription Plans </h1>
 
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 mb-20 lg:mb-0">
             {plans.map((plan) => (
               <div
                 key={plan.id}
@@ -161,7 +161,7 @@ export default function SubscriptionPlans() {
                     : "border-gray-200 bg-white"
                 }`}
               >
-                <div className="p-6 space-y-4">
+                <div className="lg:p-6 space-y-4 ">
                   <div className="flex justify-between items-center">
                     <h2 className="text-lg font-semibold">{plan.name}</h2>
                     {isCurrentPlan(plan) && (
@@ -180,7 +180,7 @@ export default function SubscriptionPlans() {
                         setSelectedTypes({ ...selectedTypes, [plan.id]: "monthly" })
                       }
                       disabled={isMonthlyDisabled(plan)}
-                      className={`flex-1 py-2 rounded-full cursor-pointer border text-sm font-medium ${
+                      className={`flex-1 py-2 px-2 rounded-full cursor-pointer border text-sm font-medium ${
                         selectedTypes[plan.id] === "monthly"
                           ? "bg-[#2545E0] text-white border-[#2545E0]"
                           : "bg-white text-black border-gray-300"
@@ -194,7 +194,7 @@ export default function SubscriptionPlans() {
                       onClick={() =>
                         setSelectedTypes({ ...selectedTypes, [plan.id]: "yearly" })
                       }
-                      className={`flex-1 py-2 rounded-full border cursor-pointer text-sm font-medium ${
+                      className={`flex-1 py-2  px-2 rounded-full border cursor-pointer text-sm font-medium ${
                         selectedTypes[plan.id] === "yearly"
                           ? "bg-[#2545E0] text-white border-[#2545E0]"
                           : "bg-white text-black border-gray-300"

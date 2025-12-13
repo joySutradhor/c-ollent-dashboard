@@ -189,9 +189,26 @@ export default function ProfilePage() {
       showCancelButton: true,
       confirmButtonColor: "#2545E0",
       cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, logout",
     });
 
-    if (result.isConfirmed) {
+    if (!result.isConfirmed) return;
+
+    try {
+      await axios.post(
+        "https://api.ollent.com/api/logout/",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      // Even if API fails, we still logout locally
+      console.error("Logout API failed:", error);
+    } finally {
       localStorage.clear();
       router.push("/login");
     }
@@ -235,24 +252,27 @@ export default function ProfilePage() {
           {data ? (
             <form onSubmit={handleSubmit}>
               {/* IMAGE */}
-              <div className="flex justify-center items-center col-span-2 mb-5 relative">
-                <Image
-                  height={100}
-                  width={100}
-                  alt="Profile Img"
-                  src={imagePreview || "/default-avatar.png"}
-                  className="rounded-full size-36 object-cover"
-                />
-                <label className="flex justify-end bg-black text-white p-2 rounded-full cursor-pointer mt-16">
-                  <FaCamera />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                    hidden
+
+              {(user_type === "Academy" || user_type === "SuperAdmin") && (
+                <div className="flex justify-center items-center col-span-2 mb-5 relative">
+                  <Image
+                    height={100}
+                    width={100}
+                    alt="Profile Img"
+                    src={imagePreview || "/default-avatar.png"}
+                    className="rounded-full size-36 object-cover"
                   />
-                </label>
-              </div>
+                  <label className="flex justify-end bg-black text-white p-2 rounded-full cursor-pointer mt-16">
+                    <FaCamera />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      hidden
+                    />
+                  </label>
+                </div>
+              )}
 
               {/* DYNAMIC FIELDS */}
               <div className="grid md:grid-cols-2 gap-5">
@@ -345,7 +365,7 @@ export default function ProfilePage() {
 
               {/* BUTTONS */}
               <div className="grid md:grid-cols-2 justify-between items-center py-10">
-                <div className="flex gap-x-6 flex-wrap mb-5 md:mb-0">
+                <div className="flex gap-6 flex-wrap mb-5 md:mb-0">
                   <button
                     type="submit"
                     className="flex items-center gap-2 border border-black/10 cursor-pointer hover:bg-[#2545E0] hover:text-white text-black py-2 px-6 rounded"
@@ -430,8 +450,7 @@ export default function ProfilePage() {
 
 const Input = ({ label, name, value, onChange }) => {
   // auto-detect numeric fields
-  const isNumberField =
-    /contact|contact_no|number|mobile/i.test(name);
+  const isNumberField = /contact|contact_no|number|mobile/i.test(name);
 
   return (
     <label className="flex flex-col">

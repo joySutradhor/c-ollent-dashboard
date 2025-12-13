@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Topbar from "@/components/topbar/page";
+import useAuthToken from "../Hooks/useAuthToken";
 
 export default function SuccessPage() {
   const router = useRouter();
   const pathname = usePathname();
+  const { user_type } = useAuthToken();
 
   const formattedPath = pathname
     .replace(/^\/|\/$/g, "")
@@ -16,13 +18,16 @@ export default function SuccessPage() {
     )
     .join(" / ");
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     router.push("/dashboard/plan-history");
-  //   }, 10000);
-
-  //   return () => clearTimeout(timer);
-  // }, [router]);
+  // Determine redirect URL based on user_type
+  const handleRedirect = () => {
+    if (user_type === "Academy") {
+      router.push("/dashboard/plan-history");
+    } else if (user_type === "Client") {
+      router.push("/dashboard/booking-list");
+    } else {
+      router.push("/dashboard"); 
+    }
+  };
 
   return (
     <section className="edn__sideToLeftSpace">
@@ -32,7 +37,7 @@ export default function SuccessPage() {
         <div className="min-h-[60vh] flex flex-col items-center justify-center bg-gray-50 p-6">
           <div className="bg-white shadow-lg rounded-xl p-10 text-center max-w-md">
             <h1 className="text-3xl font-semibold text-[#2545E0] mb-4">
-              Payment Successful 
+              Payment Successful
             </h1>
 
             <p className="text-gray-700 mb-6">
@@ -40,10 +45,10 @@ export default function SuccessPage() {
             </p>
 
             <button
-              onClick={() => router.push("/dashboard/plan-history")}
-              className="px-6 py-3 cursor-pointer bg-[#2545E0] text-white rounded-lg  transition"
+              onClick={handleRedirect}
+              className="px-6 py-3 cursor-pointer bg-[#2545E0] text-white rounded-lg transition"
             >
-              Go to Plan History
+              Go to Dashboard
             </button>
           </div>
         </div>
