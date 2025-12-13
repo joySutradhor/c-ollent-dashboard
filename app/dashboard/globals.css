@@ -37,7 +37,7 @@
     @apply order-2  xl:order-1;
   }
   .edn__sideToLeftSpace {
-    @apply pl-5;
+    @apply pl-5 max-w-[100vw] overflow-x-auto;
   }
 
   .edn__left__right__space {
