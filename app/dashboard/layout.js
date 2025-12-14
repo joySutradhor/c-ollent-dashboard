@@ -48,7 +48,7 @@ export default function LoginLayout({ children }) {
     <section className={`${WorkSans.className} antialiased bg-no-repeat`}>
       {/* Layout Wrapper */}
       <div className="flex min-h-screen">
-        <div className="w-[20vw] 2xl:w-[17vw] shrink-0">
+        <div className="xl:w-[20vw] 2xl:w-[17vw] shrink-0">
           <Sidebar />
         </div>
 
