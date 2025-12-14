@@ -2,7 +2,6 @@
 // import "./globals.css";
 // import Sidebar from "@/components/sidebar/page";
 
-
 // const WorkSans = Work_Sans({
 //   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 //   subsets: ["latin"],
@@ -29,7 +28,6 @@
 //   );
 // }
 
-
 import { Work_Sans } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/sidebar/page";
@@ -47,20 +45,14 @@ export const metadata = {
 
 export default function LoginLayout({ children }) {
   return (
-    <section
-      className={`${WorkSans.className} antialiased bg-no-repeat`}
-    >
+    <section className={`${WorkSans.className} antialiased bg-no-repeat`}>
       {/* Layout Wrapper */}
       <div className="flex min-h-screen">
+        <div className="w-[20vw] 2xl:w-[17vw] shrink-0">
+          <Sidebar />
+        </div>
 
-        {/* Sidebar */}
-        <Sidebar />
-
-        {/* Main Content */}
-        <main className="flex-1 xl:ml-[20vw] 2xl:ml-[17vw]">
-          {children}
-        </main>
-
+        <main className="flex-1">{children}</main>
       </div>
     </section>
   );
